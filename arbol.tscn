@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ljmfi20vqcd1"]
+
+[ext_resource type="Texture2D" uid="uid://7pno7ulha62e" path="res://Fruit_tree2.png" id="1_omjyp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rcsqm"]
+radius = 43.0
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=1111262383]
+
+[node name="FruitTree2" type="Sprite2D" parent="." unique_id=857576585]
+position = Vector2(-10, -60.999992)
+scale = Vector2(3.9062502, 3.667969)
+texture = ExtResource("1_omjyp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=203115522]
+position = Vector2(-5, 9)
+shape = SubResource("CircleShape2D_rcsqm")
