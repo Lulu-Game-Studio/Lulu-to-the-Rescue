@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ljmfi20vqcd1"]
 
-[ext_resource type="Texture2D" uid="uid://7pno7ulha62e" path="res://Fruit_tree2.png" id="1_omjyp"]
+[ext_resource type="Texture2D" uid="uid://7pno7ulha62e" path="res://recursos/Fruit_tree2.png" id="1_omjyp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rcsqm"]
 radius = 43.0

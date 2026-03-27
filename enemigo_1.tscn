@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://doukvotsy6fy2"]
+
+[ext_resource type="Texture2D" uid="uid://b5uue58oafafg" path="res://recursos/Fighter2_Walk.png" id="1_chsmr"]
+[ext_resource type="Script" uid="uid://c03vb6apyausf" path="res://enemigo_1.gd" id="1_lsjj5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsjj5"]
+atlas = ExtResource("1_chsmr")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q856w"]
+atlas = ExtResource("1_chsmr")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjvkx"]
+atlas = ExtResource("1_chsmr")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1x3o7"]
+atlas = ExtResource("1_chsmr")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdgmj"]
+atlas = ExtResource("1_chsmr")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jh6hw"]
+atlas = ExtResource("1_chsmr")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_akb6v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lsjj5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q856w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjvkx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1x3o7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdgmj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jh6hw")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chsmr"]
+size = Vector2(43, 73)
+
+[node name="enemigo1" type="CharacterBody2D" unique_id=2067338837]
+light_mask = 2
+z_index = 10
+collision_layer = 2
+script = ExtResource("1_lsjj5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2060553835]
+unique_name_in_owner = true
+position = Vector2(3.8146973e-06, -29)
+scale = Vector2(3.71875, 3.53125)
+sprite_frames = SubResource("SpriteFrames_akb6v")
+animation = &"walk"
+autoplay = "walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2102642378]
+position = Vector2(-1.5, -23.5)
+shape = SubResource("RectangleShape2D_chsmr")
