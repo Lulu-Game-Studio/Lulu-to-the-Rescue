@@ -1,25 +1,30 @@
 extends Node2D
-var enemigos_spawneados=0
-var muertos_totales=0
+var spawned_enemies=0
+var frightened_people=0
 func spawn_mob():
-	var new_mob = preload("res://enemigo_1.tscn").instantiate()
-	var num_aleatorio = str(randi() % 3)
-	var nodo_carril = get_node("%PathFollow2D_" + num_aleatorio)
+	var randomNumber = str(randi() % 3)
+	var lane_node = get_node("%PathFollow2D_" + randomNumber)
 	
-	if nodo_carril and enemigos_spawneados<5:
-		nodo_carril.progress_ratio = randf()
-		new_mob.global_position = nodo_carril.global_position
-		new_mob.enemigo_ahuyentado.connect(_on_enemigo_muerto)
+	lane_node.progress_ratio = randf()
+	var new_mob
+	if frightened_people < 5 and spawned_enemies < 5:
+		new_mob = preload("res://enemigo_1.tscn").instantiate()
+	elif frightened_people >= 5 and frightened_people < 10 and spawned_enemies < 10:
+		new_mob = preload("res://enemigo_2.tscn").instantiate()
+	elif frightened_people >= 10:
+		new_mob = preload("res://cat.tscn").instantiate()
+	if new_mob:
+		new_mob.global_position = lane_node.global_position
+		new_mob.frightened_enemy.connect(_on_enemigo_muerto)
 		add_child(new_mob)
-		enemigos_spawneados+=1
-		
-		
-				
+		spawned_enemies += 1
 		
 func _on_enemigo_muerto():
-	muertos_totales += 1
-	if muertos_totales == 5:
-		$Ronda1_finalizada.visible = true
+	frightened_people += 1
+	if frightened_people == 5:
+		$round1_completed.visible = true
+	if frightened_people==10:
+		%round2_completed.visible=true
 
 func _on_timer_timeout() -> void:
 	spawn_mob()
@@ -27,6 +32,7 @@ func _on_timer_timeout() -> void:
 
 func _on_zonallegada_body_entered(body):
 	%GameOver.visible=true	
+	#get_tree().paused = true
 
 
 func _on_button_pressed():
@@ -35,4 +41,8 @@ func _on_button_pressed():
 
 
 func _on_inicio_r_onda_2_timeout() -> void:
-	$Ronda1_finalizada.visible = false
+	$round1_completed.visible = false
+
+
+func _on_inicio_r_onda_3_timeout() -> void:
+	$round2_completed.visible = false

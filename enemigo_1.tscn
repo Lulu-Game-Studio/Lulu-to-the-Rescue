@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://doukvotsy6fy2"]
 
 [ext_resource type="Texture2D" uid="uid://b5uue58oafafg" path="res://recursos/Fighter2_Walk.png" id="1_chsmr"]
-[ext_resource type="Script" uid="uid://c03vb6apyausf" path="res://enemigo_1.gd" id="1_lsjj5"]
+[ext_resource type="Script" uid="uid://ku5d26oibsjk" path="res://enemigo_1.gd" id="1_lsjj5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lsjj5"]
 atlas = ExtResource("1_chsmr")
@@ -56,6 +56,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chsmr"]
 size = Vector2(43, 73)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lsjj5"]
+size = Vector2(60, 87)
+
 [node name="enemigo1" type="CharacterBody2D" unique_id=2067338837]
 light_mask = 2
 z_index = 10
@@ -73,3 +76,11 @@ autoplay = "walk"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2102642378]
 position = Vector2(-1.5, -23.5)
 shape = SubResource("RectangleShape2D_chsmr")
+
+[node name="damageArea" type="Area2D" parent="." unique_id=1479848611]
+
+[node name="damage" type="CollisionShape2D" parent="damageArea" unique_id=1438995880]
+position = Vector2(-2, -25.5)
+shape = SubResource("RectangleShape2D_lsjj5")
+
+[connection signal="body_entered" from="damageArea" to="." method="_on_damage_area_body_entered"]
