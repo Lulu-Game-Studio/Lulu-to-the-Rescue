@@ -1,48 +1,76 @@
 extends CharacterBody2D
 
-var accion = false
+var action = false
+var poop_scene = preload("res://Poop.tscn")
 
 func _physics_process(delta):
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var speed = 200
-	if direction.x < 0:
-		$AnimatedSprite2D.flip_h = true  
-	elif direction.x > 0:
-		$AnimatedSprite2D.flip_h = false
-		
-	if Input.is_action_pressed("run") and direction.length() > 0:
-		speed = 400 
-		
-	velocity = direction * speed
-	move_and_slide()
-	if Input.is_action_just_pressed("jump"):
-		accion = true
-		$AnimatedSprite2D.play("jump")
-	
-	elif Input.is_action_just_pressed("poop"):
-		accion = true
-		$AnimatedSprite2D.play("poop")
-		
-	elif Input.is_action_just_pressed("ladrar"):
-		accion = true
-		$AnimatedSprite2D.play("ladrar")
-		$AuraAtaque/ladrido.disabled=false
-	if not accion:
+	if not action:
 		if direction.length() > 0:
-			if Input.is_action_pressed("run"):
+			if Input.is_action_pressed("run") and $LuluStamina.value>10:
 				$AnimatedSprite2D.play("run")
+				speed=400
+				$LuluStamina.value-=10*delta
 			else:
 				$AnimatedSprite2D.play("walk")
+				$LuluStamina.value-=2*delta
 		else:
 			$AnimatedSprite2D.play("idle")
-
-
+			$LuluStamina.value+=10*delta
+		if direction.x < 0:
+			$AnimatedSprite2D.flip_h = true  
+		elif direction.x > 0:
+			$AnimatedSprite2D.flip_h = false
+			
+		velocity = direction * speed
+	else:
+		velocity = Vector2.ZERO
+	move_and_slide()
+	if Input.is_action_just_pressed("jump") and not action:
+		action = true
+		$AnimatedSprite2D.play("jump")
+	
+	elif Input.is_action_just_pressed("poop") and not action and $LuluStamina.value > 65:
+		if $AnimatedSprite2D.flip_h:
+			var newPoop = poop_scene.instantiate()
+			var poopRespawn=global_position
+			poopRespawn.x=global_position.x-120
+			poopRespawn.y=global_position.y+13
+			action = true
+			$LuluStamina.value-=65
+			$AnimatedSprite2D.play("poop")
+			newPoop.global_position=poopRespawn
+			get_parent().add_child(newPoop)
+			
+		
+	elif Input.is_action_just_pressed("bark") and $LuluStamina.value > 25 and not action: 
+		action = true
+		$LuluStamina.value -= 25
+		$AnimatedSprite2D.play("bark")
+		$%barkSound.play()
+		$AttackAura/bark.disabled = false
+		await get_tree().create_timer(0.2).timeout
+		$AttackAura/bark.disabled = true
+		await $AnimatedSprite2D.animation_finished
+		action = false
+		
+	elif Input.is_action_just_pressed("sit") and not action:
+		action=true
+		$AnimatedSprite2D.play("sit")
+		
+		await $AnimatedSprite2D.animation_finished
+		$LuluStamina.value+=30
+		 
+	#if not action:
+	
 func _on_animated_sprite_2d_animation_finished():
-	if $AnimatedSprite2D.animation=="ladrar":
-		$AuraAtaque/ladrido.disabled=true
-	accion = false
+	if $AnimatedSprite2D.animation=="bark":
+		$AttackAura/bark.disabled=true
+	action = false
 
 
-func _on_aura_ataque_body_entered(body):
+
+func _on_attack_aura_body_entered(body: Node2D) -> void:
 	if body.name != "Lulu":
-		body.recibe_ladrido()
+		body.receives_bark()

@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var speed = 90
+var speed = 110
 var health=2
 var dead=false
 signal frightened_enemy

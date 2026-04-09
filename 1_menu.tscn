@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://cdqe4c6nwwf0f"]
+
+[ext_resource type="Script" uid="uid://cgvmjltrylgwa" path="res://1_menu.gd" id="1_r0agv"]
+[ext_resource type="Texture2D" uid="uid://b8du74vwbfrbn" path="res://recursos/mainMenu.jpg" id="1_s0bjr"]
+[ext_resource type="Texture2D" uid="uid://d0e6xgjv5mkwy" path="res://recursos/luluMain.png" id="3_0dmkq"]
+
+[node name="1menu" type="CanvasLayer" unique_id=841638178]
+script = ExtResource("1_r0agv")
+
+[node name="Menu" type="Control" parent="." unique_id=383224356]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Menu" unique_id=2122058487]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -920.0
+offset_top = -894.0
+offset_right = 886.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_s0bjr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu" unique_id=1186753252]
+unique_name_in_owner = true
+z_index = 3
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -161.0
+offset_top = -271.0
+offset_right = 158.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 11
+
+[node name="LuluMain" type="Sprite2D" parent="Menu/VBoxContainer" unique_id=729149570]
+z_index = 2
+position = Vector2(163, -386.5)
+texture = ExtResource("3_0dmkq")
+
+[node name="playButton" type="Button" parent="Menu/VBoxContainer" unique_id=226540069]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_colors/font_disabled_color = Color(0.8745098, 0.8745098, 0.6509804, 0.6039216)
+text = "PLAY"
+
+[node name="controlsButton" type="Button" parent="Menu/VBoxContainer" unique_id=674387191]
+layout_mode = 2
+text = "CONTROLS/INFO"
+
+[node name="exitButton" type="Button" parent="Menu/VBoxContainer" unique_id=1134145455]
+layout_mode = 2
+text = "EXIT"
+
+[node name="Panel" type="Panel" parent="Menu" unique_id=837136602]
+unique_name_in_owner = true
+visible = false
+z_index = 10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="infoControls" type="Label" parent="Menu/Panel" unique_id=1934947087]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -86.0
+offset_top = -63.5
+offset_right = 86.0
+offset_bottom = 63.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "WASD / ARROWS: Move (-2% Stamina)
+SHIFT: Run (-10% Stamina)
+F: Bark (-25% Stamina)
+Z: Poop (-65% Stamina) *Only facing LEFT
+Q: Sit (+30% Recovery)
+IDLE: Rest (+10% Recovery)
+
+ROUND : Humans and cats need 2 BARKS to scare away or step in a poop.
+
+
+"
+
+[node name="exitButton2" type="Button" parent="Menu/Panel" unique_id=1505402243]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -224.0
+offset_top = -104.0
+offset_right = 224.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "EXIT"
+
+[connection signal="pressed" from="Menu/VBoxContainer/playButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/controlsButton" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/exitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="Menu/Panel/exitButton2" to="." method="_on_exit_button_2_pressed"]

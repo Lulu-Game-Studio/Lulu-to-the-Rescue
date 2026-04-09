@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var speed = 90
+var speed = 140
 var health=2
 var dead=false
 signal frightened_enemy
@@ -21,8 +21,7 @@ func receives_bark():
 	
 
 
-func _on_damage_area_body_entered(body):
+func _on_damage_area_body_entered(body) :
 	if body.name =="Lulu":
 		#get_tree().paused = true
 		get_tree().current_scene.find_child("GameOver").visible = true
-		

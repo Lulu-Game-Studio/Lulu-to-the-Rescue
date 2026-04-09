@@ -1,30 +1,30 @@
 [gd_scene format=3 uid="uid://doukvotsy6fy2"]
 
-[ext_resource type="Texture2D" uid="uid://b5uue58oafafg" path="res://recursos/Fighter2_Walk.png" id="1_chsmr"]
-[ext_resource type="Script" uid="uid://ku5d26oibsjk" path="res://enemigo_1.gd" id="1_lsjj5"]
+[ext_resource type="Script" uid="uid://ku5d26oibsjk" path="res://enemy_1.gd" id="1_pjquw"]
+[ext_resource type="Texture2D" uid="uid://b5uue58oafafg" path="res://recursos/Fighter2_Walk.png" id="2_663o1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lsjj5"]
-atlas = ExtResource("1_chsmr")
+atlas = ExtResource("2_663o1")
 region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q856w"]
-atlas = ExtResource("1_chsmr")
+atlas = ExtResource("2_663o1")
 region = Rect2(32, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cjvkx"]
-atlas = ExtResource("1_chsmr")
+atlas = ExtResource("2_663o1")
 region = Rect2(64, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1x3o7"]
-atlas = ExtResource("1_chsmr")
+atlas = ExtResource("2_663o1")
 region = Rect2(96, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kdgmj"]
-atlas = ExtResource("1_chsmr")
+atlas = ExtResource("2_663o1")
 region = Rect2(128, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jh6hw"]
-atlas = ExtResource("1_chsmr")
+atlas = ExtResource("2_663o1")
 region = Rect2(160, 32, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_akb6v"]
@@ -59,11 +59,11 @@ size = Vector2(43, 73)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lsjj5"]
 size = Vector2(60, 87)
 
-[node name="enemigo1" type="CharacterBody2D" unique_id=2067338837]
+[node name="enemy1" type="CharacterBody2D" unique_id=2067338837 groups=["enemies"]]
 light_mask = 2
 z_index = 10
 collision_layer = 2
-script = ExtResource("1_lsjj5")
+script = ExtResource("1_pjquw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2060553835]
 unique_name_in_owner = true

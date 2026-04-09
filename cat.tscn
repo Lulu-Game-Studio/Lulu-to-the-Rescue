@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://s5lf8q3fjc4f"]
+
+[ext_resource type="Script" uid="uid://dp1opj81p2ebj" path="res://cat.gd" id="1_52fj1"]
+[ext_resource type="Texture2D" uid="uid://cp1gs5xpww27g" path="res://recursos/3 Cat/Walk.png" id="2_6fl1u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2l3q"]
+atlas = ExtResource("2_6fl1u")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rcru"]
+atlas = ExtResource("2_6fl1u")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4iox0"]
+atlas = ExtResource("2_6fl1u")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qsgh"]
+atlas = ExtResource("2_6fl1u")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2masy"]
+atlas = ExtResource("2_6fl1u")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4wem"]
+atlas = ExtResource("2_6fl1u")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_irh6b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p2l3q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rcru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4iox0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qsgh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2masy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4wem")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8dhxo"]
+size = Vector2(89, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_52fj1"]
+size = Vector2(82.5, 51)
+
+[node name="cat" type="CharacterBody2D" unique_id=1662748146 groups=["enemies"]]
+z_index = 5
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_52fj1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1455550071]
+position = Vector2(-6.999996, -43)
+scale = Vector2(2.9583333, 2.7291667)
+sprite_frames = SubResource("SpriteFrames_irh6b")
+animation = &"walk"
+autoplay = "walk"
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1202223725]
+position = Vector2(-3.5, -4)
+shape = SubResource("RectangleShape2D_8dhxo")
+
+[node name="laneChangeTimer" type="Timer" parent="." unique_id=750605213]
+unique_name_in_owner = true
+wait_time = 1.5
+autostart = true
+
+[node name="damageArea" type="Area2D" parent="." unique_id=1000133730]
+
+[node name="damage" type="CollisionShape2D" parent="damageArea" unique_id=1679894889]
+position = Vector2(-2.25, -8.5)
+shape = SubResource("RectangleShape2D_52fj1")
+
+[connection signal="timeout" from="laneChangeTimer" to="." method="_on_lane_change_timer_timeout"]
+[connection signal="body_entered" from="damageArea" to="." method="_on_damage_area_body_entered"]
