@@ -59,7 +59,7 @@ size = Vector2(89, 56)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52fj1"]
 size = Vector2(82.5, 51)
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1662748146]
+[node name="cat" type="CharacterBody2D" unique_id=1662748146 groups=["enemies"]]
 z_index = 5
 collision_layer = 2
 collision_mask = 0

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cxweoautn4mud"]
+
+[ext_resource type="Texture2D" uid="uid://dmnlh1seygs12" path="res://recursos/BUSH.png" id="1_8cy4n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_28u5p"]
+radius = 35.902645
+
+[node name="bush" type="StaticBody2D" unique_id=1991501570]
+z_index = 12
+collision_layer = 4
+
+[node name="Bush" type="Sprite2D" parent="." unique_id=2119850607]
+position = Vector2(-5, -14)
+texture = ExtResource("1_8cy4n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=101516019]
+position = Vector2(-4, 57)
+shape = SubResource("CircleShape2D_28u5p")

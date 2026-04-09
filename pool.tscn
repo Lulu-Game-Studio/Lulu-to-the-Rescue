@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bvwtkfaagwafr"]
+
+[ext_resource type="Texture2D" uid="uid://cul4a4ucb42cq" path="res://recursos/piscina.jpg" id="1_w78qj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_03hax"]
+size = Vector2(716, 402)
+
+[node name="Area2D" type="StaticBody2D" unique_id=1765588003]
+
+[node name="pool" type="Sprite2D" parent="." unique_id=225633928]
+position = Vector2(79.28665, 70.20045)
+rotation = 1.5707964
+scale = Vector2(1.69076, 1.3264594)
+texture = ExtResource("1_w78qj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1976945413]
+position = Vector2(77, 74)
+shape = SubResource("RectangleShape2D_03hax")

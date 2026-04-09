@@ -1,13 +1,14 @@
 extends CharacterBody2D
 
 var action = false
+var poop_scene = preload("res://Poop.tscn")
 
 func _physics_process(delta):
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var speed = 200
 	if not action:
 		if direction.length() > 0:
-			if Input.is_action_pressed("run"):
+			if Input.is_action_pressed("run") and $LuluStamina.value>10:
 				$AnimatedSprite2D.play("run")
 				speed=400
 				$LuluStamina.value-=10*delta
@@ -30,16 +31,30 @@ func _physics_process(delta):
 		action = true
 		$AnimatedSprite2D.play("jump")
 	
-	elif Input.is_action_just_pressed("poop") and not action:
-		action = true
-		$AnimatedSprite2D.play("poop")
+	elif Input.is_action_just_pressed("poop") and not action and $LuluStamina.value > 65:
+		if $AnimatedSprite2D.flip_h:
+			var newPoop = poop_scene.instantiate()
+			var poopRespawn=global_position
+			poopRespawn.x=global_position.x-120
+			poopRespawn.y=global_position.y+13
+			action = true
+			$LuluStamina.value-=65
+			$AnimatedSprite2D.play("poop")
+			newPoop.global_position=poopRespawn
+			get_parent().add_child(newPoop)
+			
 		
-	elif Input.is_action_just_pressed("ladrar") and $LuluStamina.value > 25 and not action: 
+	elif Input.is_action_just_pressed("bark") and $LuluStamina.value > 25 and not action: 
 		action = true
-		$LuluStamina.value-=25
-		$AnimatedSprite2D.play("ladrar")
+		$LuluStamina.value -= 25
+		$AnimatedSprite2D.play("bark")
 		$%barkSound.play()
-		$AttackAura/bark.disabled=false
+		$AttackAura/bark.disabled = false
+		await get_tree().create_timer(0.2).timeout
+		$AttackAura/bark.disabled = true
+		await $AnimatedSprite2D.animation_finished
+		action = false
+		
 	elif Input.is_action_just_pressed("sit") and not action:
 		action=true
 		$AnimatedSprite2D.play("sit")
@@ -50,11 +65,12 @@ func _physics_process(delta):
 	#if not action:
 	
 func _on_animated_sprite_2d_animation_finished():
-	if $AnimatedSprite2D.animation=="ladrar":
+	if $AnimatedSprite2D.animation=="bark":
 		$AttackAura/bark.disabled=true
 	action = false
 
 
-func _on_aura_ataque_body_entered(body):
+
+func _on_attack_aura_body_entered(body: Node2D) -> void:
 	if body.name != "Lulu":
 		body.receives_bark()

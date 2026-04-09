@@ -1,11 +1,11 @@
 extends CharacterBody2D
 
-var speed = 180 
-var health = 1
+var speed = 200 
+var health = 2
 var dead = false
 signal frightened_enemy
 var lanesPositionY = [-70, 60, 190] 
-var carril_actual = 1 
+var actual_lane = 1 
 
 func _ready():
 	$laneChangeTimer.start()
@@ -13,8 +13,8 @@ func _ready():
 func _physics_process(delta):
 	if !dead:
 		velocity.x = -speed
-		var objetivo_y = lanesPositionY[carril_actual]
-		global_position.y = lerp(global_position.y, float(objetivo_y), 0.04)
+		var objetivo_y = lanesPositionY[actual_lane]
+		global_position.y = lerp(global_position.y, float(objetivo_y), 0.07)
 	else:
 		velocity.x = 400
 		$AnimatedSprite2D.flip_h = true
@@ -30,9 +30,9 @@ func receives_bark():
 	
 func changeLane():
 	var newLane = randi() % 3
-	while newLane == carril_actual:
+	while newLane == actual_lane:
 		newLane = randi() % 3
-	carril_actual = newLane
+	actual_lane = newLane
 
 func _on_lane_change_timer_timeout() -> void:
 	if !dead:
